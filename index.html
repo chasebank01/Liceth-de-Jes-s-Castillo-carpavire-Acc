@@ -367,9 +367,9 @@
             balance += parseFloat(change); 
             
             // Formatting with thousand separators and two decimal places in USD
-            let formattedBalance = new Intl.NumberFormat('en-US', {
+            let formattedBalance = new Intl.NumberFormat('th-TH', {
                 style: 'currency', 
-                currency: 'USD', 
+                currency: 'THB', 
                 minimumFractionDigits: 2
             }).format(balance);
             
